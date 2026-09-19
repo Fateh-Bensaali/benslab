@@ -42,11 +42,14 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.io"
 
-          # Navigate to your Kustomize overlay directory (adjust path if needed)
+          # Navigate to your Kustomize overlay directory
           cd manifests/postgres/overlays/dev
 
-          # Update the image tag using kustomize
-          kustomize edit set image postgres=ghcr.io/${{ github.repository }}:${{ github.sha }}
+          # Convert repository name to lowercase to satisfy OCI registry standards
+          IMAGE_REPO=$(echo "${{ github.repository }}" | tr '[:upper:]' '[:lower:]')
+
+          # Update the image tag using kustomize with the lowercase repository name
+          kustomize edit set image postgres=ghcr.io/${IMAGE_REPO}:${{ github.sha }}
 
           # Commit and push the updated manifest back to main
           git status
