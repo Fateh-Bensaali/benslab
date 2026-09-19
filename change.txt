@@ -1,0 +1,13 @@
+git add manifests/nginx.yaml
+git commit -m "Fix merge conflict in nginx manifest"
+git push origin main
+argocd app sync gitops-nginx
+
+
+
+
+git add manifests/
+git commit -m "Add PostgreSQL production overlay and ArgoCD application"
+git push origin main
+kubectl apply -f manifests/postgres-prod-app.yaml
+Testing CI/CD pipeline sync at Sat Sep 19 03:47:30 PM CET 2026
