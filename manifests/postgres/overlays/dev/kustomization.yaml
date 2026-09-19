@@ -6,4 +6,4 @@ namePrefix: dev-
 images:
 - name: postgres
   newName: ghcr.io/Fateh-Bensaali/benslab
-  newTag: 78852e8c0dc372bebac58b92678d2d5cd10c11bc
+  newTag: a69957ab81a46ac786cf3496c095e3a355416040
