@@ -2,8 +2,11 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
 - ../../base
+namespace: default
 namePrefix: dev-
 images:
 - name: postgres
   newName: ghcr.io/fateh-bensaali/benslab
   newTag: main
+patches:
+- path: patch-deployment.yaml
