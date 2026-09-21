@@ -15,6 +15,6 @@ spec:
     spec:
       containers:
       - name: myapp
-        image: ghcr.io/PLACEHOLDER/myapp:latest
+        image: ghcr.io/fateh-bensaali/myapp:452859bec265fa84035e0f43bd68b83d74d3ff59
         ports:
         - containerPort: 5000
