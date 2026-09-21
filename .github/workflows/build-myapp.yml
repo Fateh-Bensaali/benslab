@@ -16,6 +16,9 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
 
+      - name: Set lowercase repo owner
+        run: echo "OWNER_LC=$(echo '${{ github.repository_owner }}' | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
+
       - name: Log in to GHCR
         uses: docker/login-action@v3
         with:
@@ -28,11 +31,11 @@ jobs:
         with:
           context: src/myapp
           push: true
-          tags: ghcr.io/${{ github.repository_owner }}/myapp:${{ github.sha }}
+          tags: ghcr.io/${{ env.OWNER_LC }}/myapp:${{ github.sha }}
 
       - name: Update deployment manifest
         run: |
-          sed -i "s|image: ghcr.io/.*/myapp:.*|image: ghcr.io/${{ github.repository_owner }}/myapp:${{ github.sha }}|" apps/myapp/deployment.yaml
+          sed -i "s|image: ghcr.io/.*/myapp:.*|image: ghcr.io/${{ env.OWNER_LC }}/myapp:${{ github.sha }}|" apps/myapp/deployment.yaml
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
           git add apps/myapp/deployment.yaml
